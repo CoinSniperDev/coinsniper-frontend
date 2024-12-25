@@ -1,30 +1,30 @@
-import { useState } from 'react';
-import reactLogo from './assets/react.svg';
-import viteLogo from '/vite.svg';
 import './App.css';
+import { coinsList } from './data/coinData';
 
 function App() {
-  const [count, setCount] = useState(0);
-
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank" rel="noreferrer">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank" rel="noreferrer">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+    <div style={{ textAlign: 'center', margin: '1rem auto' }}>
+      <h1>CoinSniper Home Page</h1>
+      <p>Here are the top 10 coins by market cap:</p>
+      <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center' }}>
+        {coinsList.map((coin) => (
+          <div
+            key={coin.symbol}
+            style={{
+              margin: '1rem',
+              width: '120px',
+              textAlign: 'center',
+              border: '1px solid #ccc',
+              borderRadius: '4px',
+              padding: '1rem',
+            }}
+          >
+            <img src={coin.imageUrl} alt={coin.name} style={{ width: '60px', height: '60px' }} />
+            <p>{coin.name}</p>
+          </div>
+        ))}
       </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>count is {count}</button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">Click on the Vite and React logos to learn more</p>
-    </>
+    </div>
   );
 }
 

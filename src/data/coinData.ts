@@ -7,7 +7,7 @@ export interface Coin {
   imageUrl: string; // Relative path to an image in public/coins
 }
 
-export const CoinsList: Coin[] = [
+export const coinsList: Coin[] = [
   {
     name: 'Bitcoin',
     symbol: 'BTC',
