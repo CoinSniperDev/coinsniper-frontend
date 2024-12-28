@@ -1,21 +1,19 @@
-import { useLocation, useNavigate } from 'react-router-dom';
+import React from 'react';
+import './GameOverPage.css';
 
-const GameOverPage: React.FC = () => {
-  const location = useLocation();
-  const navigate = useNavigate();
+interface GameOverPageProps {
+  finalScore: number;
+  onPlayAgain: () => void;
+}
 
-  // The finalScore was passed via navigate('/gameover', { state: { finalScore } });
-  const finalScore = (location.state as { finalScore: number })?.finalScore || 0;
-
-  function handlePlayAgain() {
-    navigate('/quiz');
-  }
-
+const GameOverPage: React.FC<GameOverPageProps> = ({ finalScore, onPlayAgain }) => {
   return (
-    <div style={{ textAlign: 'center', marginTop: '2rem' }}>
+    <div className="gameover-container">
       <h1>Game Over!</h1>
       <p>Your final score: {finalScore}</p>
-      <button onClick={handlePlayAgain}>Play Again</button>
+      <button className="play-again-button" onClick={onPlayAgain}>
+        Play Again
+      </button>
     </div>
   );
 };

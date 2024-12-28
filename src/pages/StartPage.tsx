@@ -1,16 +1,22 @@
-import { Link } from 'react-router-dom';
+// src/pages/StartPage.tsx
+import React from 'react';
+import './StartPage.css';
 
-const StartPage: React.FC = () => {
+interface StartPageProps {
+  onStartGame: () => void;
+}
+
+const StartPage: React.FC<StartPageProps> = ({ onStartGame }) => {
   return (
-    <div style={{ textAlign: 'center', marginTop: '2rem' }}>
-      <h1>CoinSniper</h1>
+    <div className="start-container">
+      <h1>CoinSniper.io</h1>
       <p>
-        Welcome to the CoinSniper.io! You have 3 seconds to guess the correct crypto coin by its image. Once you guess
-        wrong or run out of time, it's game over!
+        You have 3 seconds to guess the correct coin by its image. Once you guess wrong or run out of time, it&apos;s
+        game over!
       </p>
-      <Link to="/quiz">
-        <button style={{ fontSize: '1.2rem', padding: '0.5rem 2rem' }}>Start Game</button>
-      </Link>
+      <button className="start-button" onClick={onStartGame}>
+        Start Game
+      </button>
     </div>
   );
 };

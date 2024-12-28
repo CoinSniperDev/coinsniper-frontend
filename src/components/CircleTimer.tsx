@@ -1,22 +1,33 @@
+import React from 'react';
+import './CircleTimer.css';
+
 interface CircleTimerProps {
   totalTime: number; // total seconds
   currentTime: number; // how many seconds have elapsed
   size?: number; // diameter of the circle
 }
 
-const CircleTimer: React.FC<CircleTimerProps> = ({ totalTime, currentTime, size = 60 }) => {
+const CircleTimer: React.FC<CircleTimerProps> = ({ totalTime, currentTime, size = 80 }) => {
   const radius = (size - 6) / 2; // subtract stroke
   const circumference = 2 * Math.PI * radius;
 
-  // remaining = totalTime - currentTime
-  // fraction from 0..1
-  const fraction = Math.max(0, (totalTime - currentTime) / totalTime);
+  const remaining = Math.max(totalTime - currentTime, 0);
+  const fraction = remaining / totalTime;
   const offset = circumference * (1 - fraction);
 
   return (
-    <svg width={size} height={size}>
-      <circle stroke="#ccc" fill="transparent" strokeWidth="5" r={radius} cx={size / 2} cy={size / 2} />
+    <svg width={size} height={size} className="circle-timer">
       <circle
+        className="circle-bg"
+        stroke="#ccc"
+        fill="transparent"
+        strokeWidth="5"
+        r={radius}
+        cx={size / 2}
+        cy={size / 2}
+      />
+      <circle
+        className="circle-progress"
         stroke="#f00"
         fill="transparent"
         strokeWidth="5"
@@ -26,10 +37,9 @@ const CircleTimer: React.FC<CircleTimerProps> = ({ totalTime, currentTime, size 
         r={radius}
         cx={size / 2}
         cy={size / 2}
-        style={{ transition: 'stroke-dashoffset 0.2s linear' }}
       />
-      <text x="50%" y="55%" textAnchor="middle" fill="#000" fontSize="14" fontWeight="bold">
-        {Math.max(totalTime - currentTime, 0)}
+      <text x="50%" y="55%" textAnchor="middle" fontSize="14" fontWeight="bold" fill="#000">
+        {remaining}
       </text>
     </svg>
   );
