@@ -17,6 +17,7 @@ const QuizPage: React.FC<QuizPageProps> = ({ coins, score, onScoreChange, onGame
   const [currentCoin, setCurrentCoin] = useState<Coin | null>(null);
   const [options, setOptions] = useState<Coin[]>([]);
   const [timer, setTimer] = useState(0);
+  const [isGameOver, setIsGameOver] = useState(false);
 
   useEffect(() => {
     // Shuffle coins once at the start of the game
@@ -26,24 +27,29 @@ const QuizPage: React.FC<QuizPageProps> = ({ coins, score, onScoreChange, onGame
   }, [coins]);
 
   useEffect(() => {
+    if (isGameOver) {
+      onGameOver();
+      return;
+    }
+
     const interval = setInterval(() => {
       setTimer((prev) => {
         const nextVal = prev + 1;
         if (nextVal >= totalTime) {
-          onGameOver();
+          setIsGameOver(true);
         }
         return nextVal;
       });
     }, 1000);
 
     return () => clearInterval(interval);
-  }, [onGameOver]);
+  }, [isGameOver, onGameOver]);
 
   function loadNextQuestion(questions = remainingQuestions) {
     setTimer(0);
 
     if (questions.length === 0) {
-      onGameOver();
+      setIsGameOver(true);
       return;
     }
 
@@ -51,8 +57,11 @@ const QuizPage: React.FC<QuizPageProps> = ({ coins, score, onScoreChange, onGame
     setCurrentCoin(selectedCoin);
     setRemainingQuestions(rest);
 
+    // Pick 3 incorrect options randomly
     const incorrectCoins = coins.filter((coin) => coin.symbol !== selectedCoin.symbol);
-    const randomOptions = shuffleArray(incorrectCoins).slice(0, 3);
+    const randomOptions = pickRandomElements(incorrectCoins, 3);
+
+    // Combine and shuffle the options once
     const allOptions = shuffleArray([selectedCoin, ...randomOptions]);
     setOptions(allOptions);
   }
@@ -64,7 +73,7 @@ const QuizPage: React.FC<QuizPageProps> = ({ coins, score, onScoreChange, onGame
       onScoreChange(score + 1);
       loadNextQuestion();
     } else {
-      onGameOver();
+      setIsGameOver(true);
     }
   }
 
@@ -96,6 +105,20 @@ function shuffleArray<T>(array: T[]): T[] {
     [array[i], array[j]] = [array[j], array[i]];
   }
   return array;
+}
+
+// Helper to pick `count` random elements from array without shuffling
+function pickRandomElements<T>(array: T[], count: number): T[] {
+  const result = [];
+  const usedIndices = new Set<number>();
+  while (result.length < count && result.length < array.length) {
+    const randomIndex = Math.floor(Math.random() * array.length);
+    if (!usedIndices.has(randomIndex)) {
+      usedIndices.add(randomIndex);
+      result.push(array[randomIndex]);
+    }
+  }
+  return result;
 }
 
 export default QuizPage;
