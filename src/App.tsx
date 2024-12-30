@@ -10,9 +10,11 @@ type GamePhase = 'start' | 'quiz' | 'gameover';
 function App() {
   const [gamePhase, setGamePhase] = useState<GamePhase>('start');
   const [score, setScore] = useState(0);
+  const [coins, setCoins] = useState([...coinsList]); // Fresh coin list for each game
 
-  function handleStartGame() {
-    setScore(0); // reset score
+  function startQuiz() {
+    setScore(0);
+    setCoins([...coinsList]); // Reset coin list for new game
     setGamePhase('quiz');
   }
 
@@ -24,19 +26,13 @@ function App() {
     setScore(newScore);
   }
 
-  function handlePlayAgain() {
-    // go back to quiz
-    setScore(0);
-    setGamePhase('quiz');
-  }
-
   return (
     <div className="app-container">
-      {gamePhase === 'start' && <StartPage onStartGame={handleStartGame} />}
+      {gamePhase === 'start' && <StartPage onStartGame={startQuiz} />}
       {gamePhase === 'quiz' && (
-        <QuizPage coins={coinsList} score={score} onScoreChange={handleScoreChange} onGameOver={handleGameOver} />
+        <QuizPage coins={coins} score={score} onScoreChange={handleScoreChange} onGameOver={handleGameOver} />
       )}
-      {gamePhase === 'gameover' && <GameOverPage finalScore={score} onPlayAgain={handlePlayAgain} />}
+      {gamePhase === 'gameover' && <GameOverPage finalScore={score} onPlayAgain={startQuiz} />}
     </div>
   );
 }
