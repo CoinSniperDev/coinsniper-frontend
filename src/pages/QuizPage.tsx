@@ -10,7 +10,7 @@ interface QuizPageProps {
   onGameOver: () => void;
 }
 
-const totalTime = 3; // game time in seconds
+const totalTime = 50; // game time in seconds
 
 const QuizPage: React.FC<QuizPageProps> = ({ coins, score, onScoreChange, onGameOver }) => {
   const [remainingQuestions, setRemainingQuestions] = useState<Coin[]>([]);
