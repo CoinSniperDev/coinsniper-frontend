@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Coin } from '../data/coinData';
 import CircleTimer from '../components/CircleTimer';
 import './QuizPage.css';
+import { TIMER_DURATION } from '../config';
 
 interface QuizPageProps {
   coins: Coin[];
@@ -9,8 +10,6 @@ interface QuizPageProps {
   onScoreChange: (newScore: number) => void;
   onGameOver: () => void;
 }
-
-const totalTime = 50; // game time in seconds
 
 const QuizPage: React.FC<QuizPageProps> = ({ coins, score, onScoreChange, onGameOver }) => {
   const [remainingQuestions, setRemainingQuestions] = useState<Coin[]>([]);
@@ -35,7 +34,7 @@ const QuizPage: React.FC<QuizPageProps> = ({ coins, score, onScoreChange, onGame
     const interval = setInterval(() => {
       setTimer((prev) => {
         const nextVal = prev + 1;
-        if (nextVal >= totalTime) {
+        if (nextVal >= TIMER_DURATION) {
           setIsGameOver(true);
         }
         return nextVal;
@@ -84,7 +83,7 @@ const QuizPage: React.FC<QuizPageProps> = ({ coins, score, onScoreChange, onGame
         <>
           <img src={currentCoin.imageUrl} alt={currentCoin.name} className="coin-image" />
           <div className="timer-wrapper">
-            <CircleTimer totalTime={totalTime} currentTime={timer} />
+            <CircleTimer totalTime={TIMER_DURATION} currentTime={timer} />
           </div>
           <div className="button-list">
             {options.map((option) => (

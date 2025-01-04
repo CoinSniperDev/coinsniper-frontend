@@ -4,22 +4,22 @@ import QuizPage from './pages/QuizPage';
 import GameOverPage from './pages/GameOverPage';
 import { coinsList } from './data/coinData';
 import './App.css';
+import { GamePhase } from './config';
 
-type GamePhase = 'start' | 'quiz' | 'gameover';
 
 function App() {
-  const [gamePhase, setGamePhase] = useState<GamePhase>('start');
+  const [gamePhase, setGamePhase] = useState<GamePhase>(GamePhase.Start);
   const [score, setScore] = useState(0);
   const [coins, setCoins] = useState([...coinsList]); // Fresh coin list for each game
 
   function startQuiz() {
     setScore(0);
     setCoins([...coinsList]); // Reset coin list for new game
-    setGamePhase('quiz');
+    setGamePhase(GamePhase.Quiz);
   }
 
   function handleGameOver() {
-    setGamePhase('gameover');
+    setGamePhase(GamePhase.GameOver);
   }
 
   function handleScoreChange(newScore: number) {
@@ -28,11 +28,11 @@ function App() {
 
   return (
     <div className="app-container">
-      {gamePhase === 'start' && <StartPage onStartGame={startQuiz} />}
-      {gamePhase === 'quiz' && (
+      {gamePhase === GamePhase.Start && <StartPage onStartGame={startQuiz} />}
+      {gamePhase === GamePhase.Quiz && (
         <QuizPage coins={coins} score={score} onScoreChange={handleScoreChange} onGameOver={handleGameOver} />
       )}
-      {gamePhase === 'gameover' && <GameOverPage finalScore={score} onPlayAgain={startQuiz} />}
+      {gamePhase === GamePhase.GameOver && <GameOverPage finalScore={score} onPlayAgain={startQuiz} />}
     </div>
   );
 }
