@@ -6,7 +6,6 @@ import { coinsList } from './data/coinData';
 import './App.css';
 import { GamePhase } from './config';
 
-
 function App() {
   const [gamePhase, setGamePhase] = useState<GamePhase>(GamePhase.Start);
   const [score, setScore] = useState(0);
