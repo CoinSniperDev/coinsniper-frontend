@@ -3,8 +3,8 @@ import StartPage from './pages/StartPage';
 import QuizPage from './pages/QuizPage';
 import GameOverPage from './pages/GameOverPage';
 import { coinsList } from './data/coinData';
-import './App.css';
 import { GamePhase } from './config';
+import './App.css';
 
 function App() {
   const [gamePhase, setGamePhase] = useState<GamePhase>(GamePhase.Start);
