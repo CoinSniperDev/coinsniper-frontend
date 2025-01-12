@@ -3,6 +3,7 @@ import { Coin } from '../data/coinData';
 import CircleTimer from '../components/CircleTimer';
 import './QuizPage.css';
 import { TIMER_DURATION } from '../config';
+import { shuffleArray, pickRandomElements } from '../util/array-utils';
 
 interface QuizPageProps {
   coins: Coin[];
@@ -81,7 +82,7 @@ const QuizPage: React.FC<QuizPageProps> = ({ coins, score, onScoreChange, onGame
       <h2>Score: {score}</h2>
       {currentCoin && (
         <>
-          <img src={currentCoin.imageUrl} alt={currentCoin.name} className="coin-image" />
+          <img src={currentCoin.imageUrl} alt={'Guess the coin'} className="coin-image" />
           <div className="timer-wrapper">
             <CircleTimer totalTime={TIMER_DURATION} currentTime={timer} />
           </div>
@@ -97,27 +98,5 @@ const QuizPage: React.FC<QuizPageProps> = ({ coins, score, onScoreChange, onGame
     </div>
   );
 };
-
-function shuffleArray<T>(array: T[]): T[] {
-  for (let i = array.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [array[i], array[j]] = [array[j], array[i]];
-  }
-  return array;
-}
-
-// Helper to pick `count` random elements from array without shuffling
-function pickRandomElements<T>(array: T[], count: number): T[] {
-  const result = [];
-  const usedIndices = new Set<number>();
-  while (result.length < count && result.length < array.length) {
-    const randomIndex = Math.floor(Math.random() * array.length);
-    if (!usedIndices.has(randomIndex)) {
-      usedIndices.add(randomIndex);
-      result.push(array[randomIndex]);
-    }
-  }
-  return result;
-}
 
 export default QuizPage;
