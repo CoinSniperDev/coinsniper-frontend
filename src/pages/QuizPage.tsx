@@ -9,7 +9,7 @@ interface QuizPageProps {
   coins: Coin[];
   score: number;
   onScoreChange: (newScore: number) => void;
-  onGameOver: () => void;
+  onGameOver: (failedCoin: Coin | null) => void;
 }
 
 const QuizPage: React.FC<QuizPageProps> = ({ coins, score, onScoreChange, onGameOver }) => {
@@ -28,7 +28,7 @@ const QuizPage: React.FC<QuizPageProps> = ({ coins, score, onScoreChange, onGame
 
   useEffect(() => {
     if (isGameOver) {
-      onGameOver();
+      onGameOver(currentCoin);
       return;
     }
 
@@ -43,7 +43,7 @@ const QuizPage: React.FC<QuizPageProps> = ({ coins, score, onScoreChange, onGame
     }, 1000);
 
     return () => clearInterval(interval);
-  }, [isGameOver, onGameOver]);
+  }, [isGameOver, currentCoin, onGameOver]);
 
   function loadNextQuestion(questions = remainingQuestions) {
     setTimer(0);
