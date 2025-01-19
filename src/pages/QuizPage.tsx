@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { Coin } from '../data/coinData';
 import CircleTimer from '../components/CircleTimer';
-import './QuizPage.css';
-import { TIMER_DURATION } from '../config';
+import ReactGA from 'react-ga4';
+import { GA_CATEGORY_GAME, TIMER_DURATION } from '../config';
 import { shuffleArray, pickRandomElements } from '../util/array-utils';
+import './QuizPage.css';
 
 interface QuizPageProps {
   coins: Coin[];
@@ -36,6 +37,11 @@ const QuizPage: React.FC<QuizPageProps> = ({ coins, score, onScoreChange, onGame
       setTimer((prev) => {
         const nextVal = prev + 1;
         if (nextVal >= TIMER_DURATION) {
+          ReactGA.event({
+            category: GA_CATEGORY_GAME,
+            action: 'game_over_timer_expired',
+            value: score, // Include the score as the value
+          });
           setIsGameOver(true);
         }
         return nextVal;
@@ -49,6 +55,7 @@ const QuizPage: React.FC<QuizPageProps> = ({ coins, score, onScoreChange, onGame
     setTimer(0);
 
     if (questions.length === 0) {
+      // TODO: Handle winning the game scenario
       setIsGameOver(true);
       return;
     }
@@ -73,6 +80,11 @@ const QuizPage: React.FC<QuizPageProps> = ({ coins, score, onScoreChange, onGame
       onScoreChange(score + 1);
       loadNextQuestion();
     } else {
+      ReactGA.event({
+        category: GA_CATEGORY_GAME,
+        action: 'game_over_wrong_answer',
+        value: score, // Include the score as the value
+      });
       setIsGameOver(true);
     }
   }
