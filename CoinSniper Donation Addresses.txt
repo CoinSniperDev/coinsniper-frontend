@@ -1,0 +1,11 @@
+BTC:
+bc1q8qg85q4fmfcjnv3mc2ht8t8rsj0zy8kxrmrglf
+
+
+ETH:
+0x45992c3fac3a3358619d674ec8567ec8F9A390D6
+
+
+LTC:
+ltc1qcj489dndyr26uwqaz2yqjy57z9snfl5cv4w5mc
+
