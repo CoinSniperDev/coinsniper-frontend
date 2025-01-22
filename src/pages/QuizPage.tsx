@@ -3,7 +3,8 @@ import { Coin } from '../data/coinData';
 import CircleTimer from '../components/CircleTimer';
 import { TIMER_DURATION } from '../config';
 import { shuffleArray, pickRandomElements } from '../util/array-utils';
-import { GAEventCategory, logGAEvent } from '../util';
+import { GAEventCategory, logGAEvent } from '../util/metrics-utils';
+import useTimer from '../util/useTimer';
 import './QuizPage.css';
 
 interface QuizPageProps {
@@ -17,8 +18,24 @@ const QuizPage: React.FC<QuizPageProps> = ({ coins, score, onScoreChange, onGame
   const [remainingQuestions, setRemainingQuestions] = useState<Coin[]>([]);
   const [currentCoin, setCurrentCoin] = useState<Coin | null>(null);
   const [options, setOptions] = useState<Coin[]>([]);
-  const [timer, setTimer] = useState(0);
-  const [isGameOver, setIsGameOver] = useState(false);
+  const [timerExpired, setTimerExpired] = useState(false);
+
+  // Use the custom timer hook
+  const { timeLeft, reset } = useTimer({
+    duration: TIMER_DURATION,
+    onExpire: () => {
+      logGAEvent(GAEventCategory.GAME, 'game_over_timer_expired', undefined, score);
+      console.log('Timer expired event');
+      setTimerExpired(true);
+    },
+  });
+
+  // This is done to avoid React warning on updating component while rendering
+  useEffect(() => {
+    if (timerExpired) {
+      onGameOver(currentCoin);
+    }
+  }, [timerExpired, currentCoin, onGameOver]);
 
   useEffect(() => {
     // Shuffle coins once at the start of the game
@@ -27,34 +44,14 @@ const QuizPage: React.FC<QuizPageProps> = ({ coins, score, onScoreChange, onGame
     loadNextQuestion(shuffledCoins);
   }, [coins]);
 
-  useEffect(() => {
-    if (isGameOver) {
-      onGameOver(currentCoin);
-      return;
-    }
-
-    const interval = setInterval(() => {
-      setTimer((prev) => {
-        const nextVal = prev + 1;
-        if (nextVal >= TIMER_DURATION) {
-          logGAEvent(GAEventCategory.GAME, 'game_over_timer_expired', undefined, score);
-          setIsGameOver(true);
-        }
-        return nextVal;
-      });
-    }, 1000);
-
-    return () => clearInterval(interval);
-  }, [isGameOver, currentCoin, onGameOver]);
-
   function loadNextQuestion(questions = remainingQuestions) {
-    setTimer(0);
-
     if (questions.length === 0) {
+      onGameOver(null);
       // TODO: Handle winning the game scenario
-      setIsGameOver(true);
       return;
     }
+
+    reset(); // Reset the timer when loading a new question
 
     const [selectedCoin, ...rest] = questions;
     setCurrentCoin(selectedCoin);
@@ -76,9 +73,9 @@ const QuizPage: React.FC<QuizPageProps> = ({ coins, score, onScoreChange, onGame
       onScoreChange(score + 1);
       loadNextQuestion();
     } else {
-      // Log score on game over
+      // Metric on game over event and also capture score
       logGAEvent(GAEventCategory.GAME, 'game_over_wrong_answer', undefined, score);
-      setIsGameOver(true);
+      onGameOver(currentCoin);
     }
   }
 
@@ -89,7 +86,7 @@ const QuizPage: React.FC<QuizPageProps> = ({ coins, score, onScoreChange, onGame
         <>
           <img src={currentCoin.imageUrl} alt={'Guess the coin'} className="coin-image" />
           <div className="timer-wrapper">
-            <CircleTimer totalTime={TIMER_DURATION} currentTime={timer} />
+            <CircleTimer totalTime={TIMER_DURATION} currentTime={TIMER_DURATION - timeLeft} />
           </div>
           <div className="button-list">
             {options.map((option) => (
@@ -104,4 +101,4 @@ const QuizPage: React.FC<QuizPageProps> = ({ coins, score, onScoreChange, onGame
   );
 };
 
-export default QuizPage;
+export default React.memo(QuizPage);

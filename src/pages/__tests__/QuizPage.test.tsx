@@ -3,7 +3,7 @@ import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
 import QuizPage from '../QuizPage';
 import { logGAEvent, GAEventCategory } from '../../util';
 
-vi.mock('../../util', () => ({
+vi.mock('../../util/metrics-utils', () => ({
   logGAEvent: vi.fn(),
   GAEventCategory: {
     GAME: 'game',
@@ -50,7 +50,7 @@ describe('QuizPage Component', () => {
     fireEvent.click(screen.getByText(correctCoin!.name));
 
     // Verify that onScoreChange was called
-    expect(onScoreChangeMock).toHaveBeenCalled();
+    expect(onScoreChangeMock).toHaveBeenCalledWith(1);
   });
 
   it('calls onGameOver on incorrect guess', () => {
@@ -73,13 +73,13 @@ describe('QuizPage Component', () => {
 
     // Verify that onGameOver was called
     expect(onGameOverMock).toHaveBeenCalledTimes(1);
-
     expect(logGAEvent).toHaveBeenCalledTimes(1);
     expect(logGAEvent).toHaveBeenCalledWith(GAEventCategory.GAME, 'game_over_wrong_answer', undefined, 0);
   });
 
   it('calls onGameOver after timer expires', () => {
     vi.useFakeTimers();
+
     render(<QuizPage coins={mockCoins} score={0} onScoreChange={onScoreChangeMock} onGameOver={onGameOverMock} />);
 
     act(() => {
@@ -87,13 +87,15 @@ describe('QuizPage Component', () => {
     });
 
     expect(onGameOverMock).toHaveBeenCalledTimes(1);
-    vi.useRealTimers();
     expect(logGAEvent).toHaveBeenCalledTimes(1);
     expect(logGAEvent).toHaveBeenCalledWith(GAEventCategory.GAME, 'game_over_timer_expired', undefined, 0);
+
+    vi.useRealTimers();
   });
 
   it('handles empty coin list by calling onGameOver', () => {
     render(<QuizPage coins={[]} score={0} onScoreChange={onScoreChangeMock} onGameOver={onGameOverMock} />);
     expect(onGameOverMock).toHaveBeenCalledTimes(1);
+    expect(onGameOverMock).toHaveBeenCalledWith(null);
   });
 });
