@@ -31,7 +31,6 @@ const useTimer = ({ duration, onExpire, autoStart = true }: UseTimerOptions) => 
     }, 1000);
 
     return () => {
-      console.log('Clearing Interval');
       clearInterval(interval); // Cleanup
     };
   }, [isRunning]);

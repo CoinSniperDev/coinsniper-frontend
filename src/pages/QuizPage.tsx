@@ -25,7 +25,6 @@ const QuizPage: React.FC<QuizPageProps> = ({ coins, score, onScoreChange, onGame
     duration: TIMER_DURATION,
     onExpire: () => {
       logGAEvent(GAEventCategory.GAME, 'game_over_timer_expired', undefined, score);
-      console.log('Timer expired event');
       setTimerExpired(true);
     },
   });
