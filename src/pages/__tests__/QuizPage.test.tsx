@@ -1,8 +1,21 @@
 import { render, fireEvent, screen, act } from '@testing-library/react';
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
 import QuizPage from '../QuizPage';
+import { logGAEvent, GAEventCategory } from '../../util';
+
+vi.mock('../../util', () => ({
+  logGAEvent: vi.fn(),
+  GAEventCategory: {
+    GAME: 'game',
+    LINK: 'external_link',
+  },
+}));
 
 describe('QuizPage Component', () => {
+  beforeEach(() => {
+    vi.clearAllMocks();
+  });
+
   const mockCoins = [
     { name: 'Bitcoin', symbol: 'BTC', imageUrl: 'path/to/bitcoin.png' },
     { name: 'Ethereum', symbol: 'ETH', imageUrl: 'path/to/ethereum.png' },
@@ -60,6 +73,9 @@ describe('QuizPage Component', () => {
 
     // Verify that onGameOver was called
     expect(onGameOverMock).toHaveBeenCalledTimes(1);
+
+    expect(logGAEvent).toHaveBeenCalledTimes(1);
+    expect(logGAEvent).toHaveBeenCalledWith(GAEventCategory.GAME, 'game_over_wrong_answer', undefined, 0);
   });
 
   it('calls onGameOver after timer expires', () => {
@@ -72,6 +88,8 @@ describe('QuizPage Component', () => {
 
     expect(onGameOverMock).toHaveBeenCalledTimes(1);
     vi.useRealTimers();
+    expect(logGAEvent).toHaveBeenCalledTimes(1);
+    expect(logGAEvent).toHaveBeenCalledWith(GAEventCategory.GAME, 'game_over_timer_expired', undefined, 0);
   });
 
   it('handles empty coin list by calling onGameOver', () => {
