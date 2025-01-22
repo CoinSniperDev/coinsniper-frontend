@@ -1,8 +1,7 @@
 // src/pages/StartPage.tsx
 import React from 'react';
-import ReactGA from 'react-ga4';
 import './StartPage.css';
-import { GA_CATEGORY_GAME } from '../config';
+import { GAEventCategory, logGAEvent } from '../util';
 
 interface StartPageProps {
   onStartGame: () => void;
@@ -10,11 +9,7 @@ interface StartPageProps {
 
 const StartPage: React.FC<StartPageProps> = ({ onStartGame }) => {
   const handleStartGame = () => {
-    ReactGA.event({
-      category: GA_CATEGORY_GAME,
-      action: 'start_game',
-      label: 'start_button_click',
-    });
+    logGAEvent(GAEventCategory.GAME, 'start_game', 'start_button_click');
 
     // Trigger game start
     onStartGame();

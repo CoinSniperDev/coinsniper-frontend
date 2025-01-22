@@ -5,6 +5,7 @@ import ReactGA from 'react-ga4';
 import './index.css'; // optional global styles
 
 // TODO: Remove debug here
+// ReactGA.initialize('G-1CK1JC1EQ5');
 ReactGA.initialize('G-1CK1JC1EQ5', {
   gaOptions: {
     debug_mode: true,

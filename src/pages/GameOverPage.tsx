@@ -1,8 +1,8 @@
 import React from 'react';
 import './GameOverPage.css';
 import { Coin } from '../data/coinData';
-import ReactGA from 'react-ga4';
-import { GA_CATEGORY_GAME, GA_CATEGORY_LINK, SESSION_REPLAY_COUNT } from '../config';
+import { SESSION_REPLAY_COUNT } from '../config';
+import { GAEventCategory, logGAEvent } from '../util';
 
 interface GameOverPageProps {
   finalScore: number;
@@ -20,23 +20,15 @@ const GameOverPage: React.FC<GameOverPageProps> = ({ finalScore, failedCoin, onP
     const updatedPlayCount = currentCount + 1;
     sessionStorage.setItem(SESSION_REPLAY_COUNT, updatedPlayCount.toString());
 
-    ReactGA.event({
-      category: GA_CATEGORY_GAME,
-      action: 'play_again',
-      label: 'play_again_button_click',
-      value: updatedPlayCount, // Total count of "Play Again" button clicks in this session
-    });
+    // Total count of "Play Again" button clicks in this session
+    logGAEvent(GAEventCategory.GAME, 'play_again', 'play_again_button_click', updatedPlayCount);
 
     onPlayAgain();
   };
 
   // TODO: Consider adding coin being clicked on
   const handleCoinGeckoClick = () => {
-    ReactGA.event({
-      category: GA_CATEGORY_LINK,
-      action: 'click_coingecko',
-      label: 'coingecko_link_click',
-    });
+    logGAEvent(GAEventCategory.LINK, 'click_coingecko', 'coingecko_link_click');
   };
 
   // _blank target: ensures that the link opens in a new browser tab when clicked.

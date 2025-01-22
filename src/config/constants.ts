@@ -10,9 +10,5 @@ export enum GamePhase {
   GameOver = 'gameover',
 }
 
-// Google Analytics
-export const GA_CATEGORY_GAME = 'game';
-export const GA_CATEGORY_LINK = 'external_link';
-
 // Storage variables
 export const SESSION_REPLAY_COUNT = 'session_replay_count';
