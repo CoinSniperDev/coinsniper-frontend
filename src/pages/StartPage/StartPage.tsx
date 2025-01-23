@@ -1,7 +1,7 @@
 // src/pages/StartPage.tsx
 import React from 'react';
 import './StartPage.css';
-import { GAEventCategory, logGAEvent } from '../util';
+import { GAEventCategory, logGAEvent } from '../../util';
 
 interface StartPageProps {
   onStartGame: () => void;

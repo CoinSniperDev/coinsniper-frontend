@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import { Coin } from '../data/coinData';
-import CircleTimer from '../components/CircleTimer';
-import { TIMER_DURATION } from '../config';
-import { shuffleArray, pickRandomElements } from '../util/array-utils';
-import { GAEventCategory, logGAEvent } from '../util/metrics-utils';
-import useTimer from '../util/useTimer';
+import { Coin } from '../../data/coinData';
+import CircleTimer from '../../components/CircleTimer/CircleTimer';
+import { TIMER_DURATION } from '../../config';
+import { shuffleArray, pickRandomElements } from '../../util/array-utils';
+import { GAEventCategory, logGAEvent } from '../../util/metrics-utils';
+import useTimer from '../../util/useTimer';
 import './QuizPage.css';
 
 interface QuizPageProps {

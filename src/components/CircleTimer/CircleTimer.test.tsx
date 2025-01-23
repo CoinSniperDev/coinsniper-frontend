@@ -1,6 +1,6 @@
 import { render } from '@testing-library/react';
 import { describe, it, expect } from 'vitest';
-import CircleTimer from '../CircleTimer';
+import CircleTimer from './CircleTimer';
 
 describe('CircleTimer Component', () => {
   it('renders correctly with custom size', () => {

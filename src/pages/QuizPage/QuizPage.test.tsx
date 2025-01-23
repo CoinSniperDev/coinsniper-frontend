@@ -1,6 +1,6 @@
 import { render, fireEvent, screen, act } from '@testing-library/react';
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
-import QuizPage from '../QuizPage';
+import QuizPage from './QuizPage';
 import { logGAEvent, GAEventCategory } from '../../util';
 
 vi.mock('../../util/metrics-utils', () => ({

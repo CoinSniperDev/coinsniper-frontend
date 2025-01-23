@@ -1,6 +1,6 @@
 import { render, fireEvent, screen } from '@testing-library/react';
 import { describe, it, expect, vi } from 'vitest';
-import GameOverPage from '../GameOverPage';
+import GameOverPage from './GameOverPage';
 import { GAEventCategory, logGAEvent } from '../../util';
 
 vi.mock('../../util', () => ({

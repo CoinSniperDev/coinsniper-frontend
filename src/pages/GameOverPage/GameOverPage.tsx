@@ -1,8 +1,8 @@
 import React from 'react';
 import './GameOverPage.css';
-import { Coin } from '../data/coinData';
-import { SESSION_REPLAY_COUNT } from '../config';
-import { GAEventCategory, logGAEvent } from '../util';
+import { Coin } from '../../data/coinData';
+import { SESSION_REPLAY_COUNT } from '../../config';
+import { GAEventCategory, logGAEvent } from '../../util';
 
 interface GameOverPageProps {
   finalScore: number;

@@ -1,7 +1,5 @@
 import { useState } from 'react';
-import StartPage from './pages/StartPage';
-import QuizPage from './pages/QuizPage';
-import GameOverPage from './pages/GameOverPage';
+import { GameOverPage, QuizPage, StartPage } from './pages';
 import { Coin, coinsList } from './data/coinData';
 import { GamePhase } from './config';
 import './App.css';
