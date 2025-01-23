@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { GameOverPage, QuizPage, StartPage } from './pages';
 import { Coin, coinsList } from './data/coinData';
 import { GamePhase } from './config';
-import './App.css';
+import styles from './App.module.css';
 
 function App() {
   const [gamePhase, setGamePhase] = useState<GamePhase>(GamePhase.Start);
@@ -27,7 +27,7 @@ function App() {
   }
 
   return (
-    <div className="app-container">
+    <div className={styles.appContainer}>
       {gamePhase === GamePhase.Start && <StartPage onStartGame={startQuiz} />}
       {gamePhase === GamePhase.Quiz && (
         <QuizPage coins={coins} score={score} onScoreChange={handleScoreChange} onGameOver={handleGameOver} />

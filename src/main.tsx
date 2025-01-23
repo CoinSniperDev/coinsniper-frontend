@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import App from './App';
 import ReactGA from 'react-ga4';
-import './index.css'; // optional global styles
+import './styles/globals.css';
 
 ReactGA.initialize('G-1CK1JC1EQ5');
 // TODO: Remove debug here
