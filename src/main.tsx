@@ -4,8 +4,9 @@ import App from './App';
 import ReactGA from 'react-ga4';
 import './index.css'; // optional global styles
 
+ReactGA.initialize('G-1CK1JC1EQ5');
 // TODO: Remove debug here
-// ReactGA.initialize('G-1CK1JC1EQ5');
+/*
 ReactGA.initialize('G-1CK1JC1EQ5', {
   gaOptions: {
     debug_mode: true,
@@ -13,7 +14,7 @@ ReactGA.initialize('G-1CK1JC1EQ5', {
   gtagOptions: {
     debug_mode: true,
   },
-});
+}); */
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   <React.StrictMode>
