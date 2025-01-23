@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Coinsniper.io - The world’s first and original crypto coin matching trivia game. Enjoy lightning-fast gameplay, global leaderboards, and thrilling competition!">
+  <meta name="keywords" content="Coinsniper, Coin sniper, CoinSniper, Coinsniper.io, crypto trivia, coingecko, cryptocurrency, coin matching game, global leaderboard">
+  <meta property="og:title" content="Coinsniper.io - Crypto Coin Trivia Game">
+  <meta property="og:description" content="The world’s FIRST and ORIGINAL crypto coin matching trivia game. Coming Soon!">
+  <meta property="og:url" content="https://coinsniper.io">
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Website",
+      "name": "Coinsniper.io",
+      "url": "https://coinsniper.io",
+      "description": "The world’s first and original crypto coin matching trivia game. Fast paced gameplay with global leaderboard"
+    }
+    </script>
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <title>Coinsniper.io</title>
+  
+
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-1CK1JC1EQ5"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-1CK1JC1EQ5');
+</script>
+
+
+  <style>
+    /* General Reset */
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background-color: #48E3F5;
+      color: black;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      height: 100vh;
+      padding: 20px;
+      box-sizing: border-box;
+    }
+
+    .container {
+      max-width: 600px;
+      width: 100%;
+    }
+
+    h1 {
+      font-size: 2.5rem;
+      margin-bottom: 20px;
+    }
+
+    p {
+      font-size: 1.2rem;
+      line-height: 1.6;
+      margin-bottom: 20px;
+    }
+
+    .coming-soon {
+      margin-bottom: 60px;
+    }
+
+    ul {
+      list-style: disc;
+      padding-left: 30px;
+      text-align: left;
+      display: inline-block;
+    }
+
+    ul li {
+      font-size: 1.1rem;
+      margin-bottom: 15px;
+    }
+
+    #interest-btn {
+      padding: 10px 20px;
+      font-size: 1.2rem;
+      color: white;
+      background-color: #007bff;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s, transform 0.3s;
+    }
+
+    #interest-btn:hover {
+      background-color: #0056b3;
+      transform: scale(1.05);
+    }
+
+    #confirmation {
+      margin-top: 10px;
+      font-size: 1rem;
+      color: green;
+      display: none;
+    }
+
+    @media (max-width: 600px) {
+      h1 {
+        font-size: 2rem;
+      }
+      p {
+        font-size: 1rem;
+      }
+      ul li {
+        font-size: 1rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>COINSNIPER.IO</h1>
+    <p>The world’s FIRST and ORIGINAL crypto coin matching trivia game.</p>
+    <p class="coming-soon">Coming Soon! <span>🚀</span></p>
+    <div class="features">
+      <h2>FEATURE PREVIEW</h2>
+      <ul>
+        <li>Lightning fast gameplay</li>
+        <li>Global leaderboard</li>
+        <li>Thrilling competition mode</li>
+        <li>Share to X</li>
+      </ul>
+    </div>
+    <button id="interest-btn">I'm Interested!</button>
+    <div id="confirmation">Thank you for your interest!</div>
+  </div>
+  <script>
+    // Handle "I'm Interested" button click
+    document.getElementById('interest-btn').addEventListener('click', () => {
+      // Show confirmation message
+      const confirmation = document.getElementById('confirmation');
+      confirmation.style.display = 'block';
+      // Track interest with Google Analytics
+      gtag('event', 'interest_click', {
+        event_category: 'engagement',
+        event_label: 'Interest Button',
+      });
+    });
+  </script>
+</body>
+</html>
