@@ -1,0 +1,46 @@
+/* Quiz Page Styles */
+.quizContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  margin: 2rem auto;
+  max-width: 600px;
+}
+  
+.coinImage {
+  width: 150px;
+  height: 150px;
+  margin: 1rem 0;
+}
+  
+.timerWrapper {
+   margin-bottom: 1rem;
+}
+  
+.quizBtnList {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+}
+
+/* not used */
+.quizScore {
+  margin-bottom: 1rem;
+}
+
+.quizOptionBtn {
+  width: 200px;
+  padding: 0.5rem 1rem;
+  font-size: 1rem;
+  border: 1px solid #888;
+  border-radius: var(--border-radius);
+  background-color: #fff;
+  cursor: pointer;
+  transition: background-color var(--transition-speed);
+}
+
+.quizOptionBtn:hover {
+  background-color: var(--primary-hover-color);
+}  

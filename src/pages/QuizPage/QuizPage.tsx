@@ -5,7 +5,7 @@ import { TIMER_DURATION } from '../../config';
 import { shuffleArray, pickRandomElements } from '../../util/array-utils';
 import { GAEventCategory, logGAEvent } from '../../util/metrics-utils';
 import useTimer from '../../util/useTimer';
-import './QuizPage.css';
+import styles from './QuizPage.module.css';
 
 interface QuizPageProps {
   coins: Coin[];
@@ -79,17 +79,17 @@ const QuizPage: React.FC<QuizPageProps> = ({ coins, score, onScoreChange, onGame
   }
 
   return (
-    <div className="quiz-container">
+    <div className={styles.quizContainer}>
       <h2>Score: {score}</h2>
       {currentCoin && (
         <>
-          <img src={currentCoin.imageUrl} alt={'Guess the coin'} className="coin-image" />
-          <div className="timer-wrapper">
+          <img src={currentCoin.imageUrl} alt={'Guess the coin'} className={styles.coinImage} />
+          <div className={styles.timerWrapper}>
             <CircleTimer totalTime={TIMER_DURATION} currentTime={TIMER_DURATION - timeLeft} />
           </div>
-          <div className="button-list">
+          <div className={styles.quizBtnList}>
             {options.map((option) => (
-              <button key={option.symbol} onClick={() => handleGuess(option)} className="guess-button">
+              <button key={option.symbol} onClick={() => handleGuess(option)} className={styles.quizOptionBtn}>
                 {option.name}
               </button>
             ))}

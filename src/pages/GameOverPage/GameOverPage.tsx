@@ -1,5 +1,5 @@
 import React from 'react';
-import './GameOverPage.css';
+import styles from './GameOverPage.module.css';
 import { Coin } from '../../data/coinData';
 import { SESSION_REPLAY_COUNT } from '../../config';
 import { GAEventCategory, logGAEvent } from '../../util';
@@ -36,13 +36,13 @@ const GameOverPage: React.FC<GameOverPageProps> = ({ finalScore, failedCoin, onP
 
   // TODO: Add styling to image and adjust alt text and remove norefferer in linting rules.
   return (
-    <div className="gameover-container">
+    <div className={styles.gameOverContainer}>
       <h1>It&apos;s Over!</h1>
       <h3>Final score: {finalScore}</h3>
       {/* Construct coingecko URL by converting coin name to lowercase and replacing spaces with hyphens  */}
       {failedCoin && (
         <>
-          <img src={failedCoin.imageUrl} alt={`Failed Coin`} className="failed-coin-image" />
+          <img src={failedCoin.imageUrl} alt={`Failed Coin`} className={styles.coinImage} />
           <p>
             <a
               href={`https://www.coingecko.com/en/coins/${failedCoin.name.toLowerCase().replace(/\s+/g, '-')}`}
@@ -55,7 +55,7 @@ const GameOverPage: React.FC<GameOverPageProps> = ({ finalScore, failedCoin, onP
           </p>
         </>
       )}
-      <button className="play-again-button" onClick={handlePlayAgain}>
+      <button className={styles.playAgainBtn} onClick={handlePlayAgain}>
         Play Again
       </button>
     </div>
