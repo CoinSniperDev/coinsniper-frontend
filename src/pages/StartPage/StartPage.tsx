@@ -24,43 +24,6 @@ const StartPage: React.FC<StartPageProps> = ({ onStartGame }) => {
       <button className={styles.startBtn} onClick={handleStartGame}>
         Start Game
       </button>
-      
-      {/* About Pop-up */}
-      {false && (
-        <div className={styles.aboutPopup}>
-          <div className={styles.aboutContent}>
-            <button onClick={toggleAbout} className={styles.closeButton}>X</button>
-            <h2>About CoinSniper.io</h2>
-            <p>CoinSniper.io is a fast-paced cryptocurrency trivia game. Test your knowledge and compete for the top spot on the leaderboard!</p>
-            <p>Support our project:</p>
-            <ul>
-              <li>Donate BTC: <a href="bitcoin:your-btc-address">your-btc-address</a></li>
-              <li>Donate ETH: <a href="ethereum:your-eth-address">your-eth-address</a></li>
-            </ul>
-          </div>
-        </div>
-      )}
-      {/* Leaderboard */}
-      <div className={styles.leaderboardContainer}>
-        <h2>Top 10 Leaderboard</h2>
-        <table className={styles.leaderboardTable}>
-          <thead>
-            <tr>
-              <th>Score</th>
-              <th>Player</th>
-            </tr>
-          </thead>
-          <tbody>
-            {/* Placeholder for dynamic leaderboard rows */}
-            {Array.from({ length: 10 }).map((_, index) => (
-              <tr key={index}>
-                <td>—</td>
-                <td>—</td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
     </div>
   );
 };

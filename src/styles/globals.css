@@ -2,7 +2,7 @@
 :root {
   --primary-color: #007bff; /* Main brand color */
   --primary-hover-color: #0056b3; /* Hover state for primary color */
-  --font-family: system-ui, Helvetica, Arial, sans-serif;
+  --font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   --border-radius: 6px; /* Rounded corners for buttons and containers */
   --transition-speed: 0.25s; /* Default transition duration */
   --background-color-dark: #242424; /* Background for dark mode */
@@ -20,8 +20,6 @@ body {
   font-weight: 400;
   color: var(--text-color-dark);
   background-color: var(--background-color-light);
-  -webkit-font-smoothing: antialiased;
-  text-rendering: optimizeLegibility;
 }
 
 /* TODO: Add dark mode. Prefers light for later when dark mode is added */
