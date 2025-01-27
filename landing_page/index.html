@@ -20,7 +20,6 @@
   <link rel="icon" type="image/x-icon" href="favicon.ico">
   <title>Coinsniper.io</title>
   
-
 <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-1CK1JC1EQ5"></script>
 <script>
@@ -33,10 +32,11 @@
 
 
   <style>
+    @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
     /* General Reset */
     body {
       margin: 0;
-      font-family: Arial, sans-serif;
+      font-family: system-ui, Arial, sans-serif;
       background-color: #48E3F5;
       color: black;
       display: flex;
@@ -46,6 +46,9 @@
       height: 100vh;
       padding: 20px;
       box-sizing: border-box;
+      line-height: 1.5;
+      -webkit-font-smoothing: antialiased;
+      text-rendering: optimizeLegibility;
     }
 
     .container {
@@ -55,7 +58,9 @@
 
     h1 {
       font-size: 2.5rem;
+      text-align: center;
       margin-bottom: 20px;
+      font-family: 'Press Start 2P', system-ui;
     }
 
     p {
@@ -64,9 +69,31 @@
       margin-bottom: 20px;
     }
 
-    .coming-soon {
+    .social-link{
+      font-size: 1.2rem;
       margin-bottom: 60px;
     }
+
+    #x-link {
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      color: black;
+      gap: 5px;
+      font-size: inherit;
+      transition: color 0.3s;
+   } 
+
+  #x-link:hover {
+    color: #0056b3;
+    text-decoration: underline;
+  }
+
+  .x-logo {
+    width: 24px;
+    height: 24px;
+    vertical-align: middle;
+  }
 
     ul {
       list-style: disc;
@@ -105,9 +132,16 @@
 
     @media (max-width: 600px) {
       h1 {
-        font-size: 2rem;
+        font-size: 1.5rem;
+        line-height: 1.2;
+      }
+      h2 {
+        font-size: 1.2rem;
       }
       p {
+        font-size: 1rem;
+      }
+      .social-link {
         font-size: 1rem;
       }
       ul li {
@@ -118,20 +152,38 @@
 </head>
 <body>
   <div class="container">
-    <h1>COINSNIPER.IO</h1>
-    <p>The world’s FIRST and ORIGINAL crypto coin matching trivia game.</p>
-    <p class="coming-soon">Coming Soon! <span>🚀</span></p>
+    <h1>CoinSniper.io</h1>
+    <p>The world’s FIRST crypto coin-matching trivia game.</p>
+    <p >Coming Soon! <span>🚀</span></p>
+    <div class="social-link">
+      <p>
+        <a
+          href="https://x.com/CoinSniper_io"
+          target="_blank"
+          id="x-link"
+          onClick="trackXLinkClick()"
+        >
+          Follow us on
+          <img src="x-logo.png" alt="X logo" class="x-logo">
+          for updates!
+        </a>
+      </p>
+    </div>
     <div class="features">
       <h2>FEATURE PREVIEW</h2>
       <ul>
         <li>Lightning fast gameplay</li>
         <li>Global leaderboard</li>
         <li>Thrilling competition mode</li>
-        <li>Share to X</li>
+        <li>Share to
+          <img src="x-logo.png" alt="X logo" class="x-logo">
+          support
+        </li>
       </ul>
     </div>
     <button id="interest-btn">I'm Interested!</button>
     <div id="confirmation">Thank you for your interest!</div>
+  </div>
   </div>
   <script>
     // Handle "I'm Interested" button click
@@ -145,6 +197,14 @@
         event_label: 'Interest Button',
       });
     });
+  </script>
+  <script>
+    function trackXLinkClick() {
+      gtag('event', 'x_follow_click', {
+        event_category: 'engagement',
+        event_label: 'Follow on X'
+      });
+    }
   </script>
 </body>
 </html>
