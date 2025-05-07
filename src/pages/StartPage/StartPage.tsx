@@ -18,7 +18,7 @@ const StartPage: React.FC<StartPageProps> = ({ onStartGame }) => {
     <div className={styles.startContainer}>
       <h1>CoinSniper.io</h1>
       <p>
-        You have 3 seconds to guess the correct coin by its image. Once you guess wrong or run out of time, it&apos;s
+        You have 3 seconds to guess the correct coin from its image. If you guess wrong or run out of time, it&apos;s
         game over!
       </p>
       <button className={styles.startBtn} onClick={handleStartGame}>
